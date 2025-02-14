@@ -1,0 +1,25 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "typeRoots": ["./src/types"],
+    "noImplicitReturns": false,
+    "strict": true,
+    "baseUrl": "./src",
+    "paths": {
+      "~/*": ["*"]
+    },
+    "allowSyntheticDefaultImports": true,
+		"esModuleInterop": true,
+		"skipLibCheck": false,
+		"resolveJsonModule": true,
+    "noImplicitAny": true,
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts",
+    "node_modules",
+		"babel.config.js", "index.js",
+  ]
+}

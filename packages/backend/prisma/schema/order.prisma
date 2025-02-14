@@ -1,0 +1,37 @@
+enum PaymentStatus {
+  COMPLETE
+  FAILED
+  PENDING
+}
+
+enum DeliveryStatus {
+  PENDING
+  IN_TRANSIT
+  DELIVERED
+}
+
+model Order {
+  id             String         @id @default(uuid()) @db.Uuid
+  userId         String         @db.Uuid
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  paymentStatus  PaymentStatus  @default(PENDING)
+  deliveryStatus DeliveryStatus @default(PENDING)
+  total          Int
+  orderDetails   OrderDetail[]
+
+  user           User           @relation(fields: [userId], references: [id])
+}
+
+model OrderDetail {
+  id              String  @id @default(uuid()) @db.Uuid
+  orderId         String  @db.Uuid
+  productId       String  @db.Uuid
+  quantity        Int
+  priceAtPurchase Int
+
+  order           Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product         Product @relation(fields: [productId], references: [id])
+
+  @@unique([orderId, productId])
+}

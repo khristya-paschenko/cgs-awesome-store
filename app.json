@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "2a0b4d16-fed6-431a-9340-8bf49504f921"
+      }
+    },
+    "ios": {
+      "bundleIdentifier": "com.khristya.paschenko.nestreactexpo"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+export const COLORS = Object.freeze({
+	text: '#000',
+	iconDarkBlue: '#1C274C',
+	bgBlue: '#EDF1F7',
+	bgWhite: '#FFF',
+	icon: '#5397F5',
+	activeBtn: '#3C82F6',
+	disabledBtn: '#A9A9A9',
+	accentRed: '#FF0000',
+	lightRed: '#FF6E6E',
+	accentGreen: '#22BB00',
+	gray: '#777777',
+	lightGray: '#D0D0D0',
+	border: '#E3E3E3',
+});
