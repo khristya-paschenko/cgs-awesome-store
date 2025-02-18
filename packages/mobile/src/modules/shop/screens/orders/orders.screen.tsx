@@ -6,11 +6,14 @@ import React from 'react';
 import { useOrders } from '~/shared/hooks/useOrders';
 import { FilerComponent } from '~/shared/componetnts/filter';
 import { OrdersFilterComponent } from '~/shared/componetnts/orders-filter';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
 export const OrdersScreen = () => {
 	const orders = useOrdersStore((state) => state.orders);
 	const { refreshOrders, handleRefresh, handleNextPage, isPending } =
 		useOrders();
+
+	const paddingBottom = useBottomTabBarHeight();
 
 	React.useEffect(() => {
 		if (isPending) return;
@@ -23,7 +26,7 @@ export const OrdersScreen = () => {
 				<OrdersFilterComponent />
 
 				<FlatList
-					contentContainerStyle={{ marginTop: 20 }}
+					contentContainerStyle={{ marginTop: 20, paddingBottom }}
 					data={orders}
 					renderItem={(order) => (
 						<OrderItemComponent order={order.item} />

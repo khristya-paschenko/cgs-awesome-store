@@ -10496,9 +10496,9 @@ react-native-svg-transformer@^1.5.0:
     path-dirname "^1.0.2"
 
 react-native-svg@15.8.1:
-  version "15.11.1"
-  resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-15.11.1.tgz#8152459a7a4d40b02e9ac8270f9b0692b3216715"
-  integrity sha512-Qmwx/yJKt+AHUr4zjxx/Q69qwKtRfr1+uIfFMQoq3WFRhqU76aL9db1DyvPiY632DAsVGba1pHf92OZPkpjrdQ==
+  version "15.11.0"
+  resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-15.11.0.tgz#e1aea7ccfc8ab0537ac812f9be78dff7232bbdfe"
+  integrity sha512-IJN0wcGHXpCbi7+TUgnjrPJTmk70t2IsEgyqCp/6x4Sy/PXz0+dB75jyUnPC0JZ1oTN1FsxnJEZChDMmhs6tzw==
   dependencies:
     css-select "^5.1.0"
     css-tree "^1.1.3"
