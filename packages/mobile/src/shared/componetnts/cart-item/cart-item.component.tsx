@@ -1,8 +1,6 @@
-import { Product } from '~/modules/services/products';
 import { Pressable, Text, View } from 'react-native';
 import React from 'react';
 import { styles } from './styles';
-import { useCartStore } from '~/shared/store/cart.store';
 import DeleteIcon from '~/../assets/icons/DeleteIcon.svg';
 import { COLORS } from '~/shared/styles';
 
@@ -22,8 +20,6 @@ export const CartItemComponent = ({
 	onPress,
 	disabled,
 }: CartItemProps) => {
-	const removeCartItem = useCartStore((state) => state.removeCartItem);
-
 	return (
 		<Pressable
 			disabled={disabled}
@@ -35,7 +31,7 @@ export const CartItemComponent = ({
 				<View style={styles.infoContainer}>
 					<Text style={styles.heading}>
 						Total: {''}
-						<Text style={styles.text}>${price * quantity}</Text>
+						<Text style={styles.text}>${price}</Text>
 					</Text>
 					<Text style={styles.heading}>
 						Amount: {''}

@@ -1,8 +1,9 @@
 import { FlatList, Text, View } from 'react-native';
-import { RouteProp } from '@react-navigation/native';
+import { NavigationProp, RouteProp } from '@react-navigation/native';
 import {
 	NAVIGATION_KEYS,
 	RootBottomTabsParamList,
+	RootStackParamList,
 } from '~/modules/navigation/types';
 import { useSingleOrder } from '~/shared/hooks/useSingleOrder';
 import { styles } from './styles';
@@ -16,8 +17,15 @@ import { useUpdateOrder } from '~/shared/hooks/useUpdateOrder';
 
 type OrderDetailsScreenProps = {
 	route: RouteProp<RootBottomTabsParamList, NAVIGATION_KEYS.ORDERS>;
+	navigation: NavigationProp<
+		RootStackParamList,
+		NAVIGATION_KEYS.ORDER_DETAILS
+	>;
 };
-export const OrderDetailsScreen = ({ route }: OrderDetailsScreenProps) => {
+export const OrderDetailsScreen = ({
+	route,
+	navigation,
+}: OrderDetailsScreenProps) => {
 	const { id } = route.params;
 	const { order, getOrder, isPending } = useSingleOrder();
 	const { updateOrder, isPending: updateOrderIsPending } = useUpdateOrder();
@@ -27,7 +35,10 @@ export const OrderDetailsScreen = ({ route }: OrderDetailsScreenProps) => {
 		getOrder(id);
 	}, [updateOrderIsPending]);
 	const handleSubmit = () => {
-		//TODO: implement pay
+		updateOrder(order.id, {
+			paymentStatus: PaymentStatus.COMPLETE,
+		});
+		navigation.navigate(NAVIGATION_KEYS.PAYMENT_CONFIRM);
 	};
 
 	const onDelete = (detailId: string) => {
