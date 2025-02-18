@@ -37,7 +37,9 @@ export const OrdersScreen = () => {
 					showsVerticalScrollIndicator={false}
 					keyExtractor={(item) => item.id}
 					ListEmptyComponent={
-						<Text style={styles.noFound}>No products found.</Text>
+						<Text style={styles.noFound}>
+							You have no orders created
+						</Text>
 					}
 				/>
 			</View>

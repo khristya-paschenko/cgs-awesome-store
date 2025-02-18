@@ -21,12 +21,11 @@ import { BackButton } from '~/shared/componetnts/ui/back-btn';
 import { CartItemScreen } from '~/modules/shop/screens/cart-item/cart-item.screen';
 import { OrderDetailsScreen } from '~/modules/shop/screens/order-details/order-details.screen';
 import { EditOrderScreen } from '~/modules/shop/screens/edit-order/edit-order.screen';
+import { PaymentScreen } from '~/modules/shop/screens/payment/payment.screen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 export const RootNavigator = () => {
 	const isAuth = useAuthStore((state) => state.isAuth);
-	// const setIsAuth = useAuthStore((state) => state.setIsAuth);
-	// setIsAuth(false);
 	const publicScreens = React.useMemo(() => {
 		return (
 			<>
@@ -100,6 +99,12 @@ export const RootNavigator = () => {
 					name={NAVIGATION_KEYS.EDIT_ORDER}
 					component={EditOrderScreen}
 					options={{ title: 'Edit Order Item' }}
+				/>
+
+				<Stack.Screen
+					name={NAVIGATION_KEYS.PAYMENT_CONFIRM}
+					component={PaymentScreen}
+					options={SCREEN_OPTIONS}
 				/>
 			</>
 		);

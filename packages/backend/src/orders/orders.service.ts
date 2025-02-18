@@ -191,7 +191,7 @@ export class OrdersService {
 	async updateOrder(
 		id: string,
 		body: UpdateOrderDto,
-	): Promise<ResponseDto<Order>> {
+	): Promise<ResponseDto<Order | null>> {
 		try {
 			const data = await this.prismaService.$transaction(async (tx) => {
 				if (body?.paymentStatus === PaymentStatus.COMPLETE) {
@@ -306,18 +306,34 @@ export class OrdersService {
 					0,
 				);
 
-				return tx.order.update({
+				const order = await tx.order.update({
 					where: { id },
 					data: { total, paymentStatus: body.paymentStatus },
 					include: { orderDetails: true },
 				});
+
+				if (order.orderDetails.length === 0) {
+					console.log('oder delete');
+					await tx.order.delete({ where: { id: order.id } });
+					return null;
+				} else {
+					console.log('order update');
+					return order;
+				}
 			});
 
-			return {
-				statusCode: HttpStatus.OK,
-				message: 'Order was updated successfully',
-				data,
-			};
+			if (data) {
+				return {
+					statusCode: HttpStatus.OK,
+					message: 'Order was updated successfully',
+					data,
+				};
+			} else {
+				return {
+					statusCode: HttpStatus.OK,
+					message: 'Order was deleted successfully',
+				};
+			}
 		} catch (err) {
 			if (err instanceof BadRequestException) {
 				throw err;

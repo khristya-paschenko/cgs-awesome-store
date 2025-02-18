@@ -14,6 +14,7 @@ export enum NAVIGATION_KEYS {
 	SETTINGS = 'SETTINGS',
 	CART = 'CART',
 	CART_ITEM = 'CART_ITEM',
+	PAYMENT_CONFIRM = 'PAYMENT_COMPLETE',
 }
 
 export type RootStackParamList = {
@@ -32,6 +33,7 @@ export type RootStackParamList = {
 	};
 	[NAVIGATION_KEYS.ORDER_DETAILS]: { id: string };
 	[NAVIGATION_KEYS.EDIT_ORDER]: { id: string };
+	[NAVIGATION_KEYS.PAYMENT_CONFIRM]: undefined;
 };
 
 export type RootBottomTabsParamList = {
