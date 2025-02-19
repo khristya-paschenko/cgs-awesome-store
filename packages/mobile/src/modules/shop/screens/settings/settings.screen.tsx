@@ -6,6 +6,7 @@ import {
 	RootBottomTabsParamList,
 } from '~/modules/navigation/types';
 import { NavigationProp } from '@react-navigation/native';
+import { useLogout } from '~/shared/hooks/useLogout';
 
 type SettingsScreenProps = {
 	navigation: NavigationProp<
@@ -14,6 +15,7 @@ type SettingsScreenProps = {
 	>;
 };
 export const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
+	const { onLogout } = useLogout();
 	return (
 		<View style={styles.container}>
 			<Pressable
@@ -36,7 +38,7 @@ export const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
 			<Pressable>
 				<Text style={styles.btn}>Terms & Conditions</Text>
 			</Pressable>
-			<Pressable>
+			<Pressable onPress={onLogout}>
 				<Text style={[styles.btn, { color: COLORS.accentRed }]}>
 					Logout
 				</Text>

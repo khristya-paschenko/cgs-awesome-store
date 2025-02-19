@@ -19,10 +19,10 @@ import {
 } from 'react-hook-form';
 
 import { styles } from './input.styles';
-import { InputError } from '../../input-error';
 import AyeVisible from '~/../assets/icons/EyeVisible.svg';
 import AyeInvisible from '~/../assets/icons/AyeInvisible.svg';
 import { COLORS } from '~/shared/styles';
+import { InputError } from 'shared/input-error';
 
 type InputProps<
 	T extends FieldValues = FieldValues,

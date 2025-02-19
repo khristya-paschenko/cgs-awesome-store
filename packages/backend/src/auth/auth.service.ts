@@ -28,7 +28,7 @@ export class AuthService {
 		return this.jwtService.sign(payload);
 	}
 
-	async verify(email: string, code: string): Promise<AuthEntity> {
+	async verify(email: string, code: string): Promise<AuthEntity<User>> {
 		try {
 			const { data } = await this.usersService.getUserBy({ email });
 
@@ -48,10 +48,15 @@ export class AuthService {
 				isVerified: true,
 			});
 
+			const user = this.usersService.getUserBy({
+				where: { id: data.id },
+			});
+
 			return {
 				statusCode: HttpStatus.OK,
 				message: 'User successfully verified.',
 				accessToken: this.signJwtToken({ userId: data.id }),
+				data: user,
 			};
 		} catch (err) {
 			throw new UnauthorizedException(
@@ -150,13 +155,14 @@ export class AuthService {
 	}
 
 	// User
-	async login(email: string, password: string): Promise<AuthEntity> {
+	async login(email: string, password: string): Promise<AuthEntity<User>> {
 		const user = await this.commonLogin(email, password);
 
 		return {
 			statusCode: HttpStatus.OK,
 			message: 'User successfully logged in.',
 			accessToken: this.signJwtToken({ userId: user?.id }),
+			data: user,
 		};
 	}
 
