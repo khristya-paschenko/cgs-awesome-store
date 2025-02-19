@@ -1,19 +1,21 @@
 import * as bcrypt from 'bcrypt';
 import {
 	HttpStatus,
-	Injectable, InternalServerErrorException,
+	Injectable,
+	InternalServerErrorException,
 	NotFoundException,
-	UnauthorizedException, UnprocessableEntityException
-} from "@nestjs/common";
+	UnauthorizedException,
+	UnprocessableEntityException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { SignupDto } from '@/auth/dto/signup.dto';
+import { SignupAuthDto } from '@/auth/dto/signup-auth.dto';
 import { Role, User } from '@prisma/client';
 import { AuthEntity } from '@/auth/entity/auth.entity';
 import { EmailService } from '@/email/email.service';
 import { UnverifiedUserException } from '@/exceptions/unverified-user.exception';
 import { UsersService } from '@/users/users.service';
 import { GenerateVerificationCode } from '@/utils/generate-verification-code';
-import { ResponseDto } from "@/common /dto/response.dto";
+import { ResponseDto } from '@/common /dto/response.dto';
 @Injectable()
 export class AuthService {
 	constructor(
@@ -28,14 +30,18 @@ export class AuthService {
 
 	async verify(email: string, code: string): Promise<AuthEntity> {
 		try {
-			const {data} = await this.usersService.getUserBy({ email });
+			const { data } = await this.usersService.getUserBy({ email });
 
 			if (!data) {
-				throw new UnauthorizedException('User not found with the provided email.');
+				throw new UnauthorizedException(
+					'User not found with the provided email.',
+				);
 			}
 
 			if (data.verificationCode !== code) {
-				throw new UnauthorizedException('Wrong verification code provided.');
+				throw new UnauthorizedException(
+					'Wrong verification code provided.',
+				);
 			}
 
 			await this.usersService.updateUser(data.id, {
@@ -48,7 +54,9 @@ export class AuthService {
 				accessToken: this.signJwtToken({ userId: data.id }),
 			};
 		} catch (err) {
-			throw new UnauthorizedException('Verification failed. Please check your verification code.');
+			throw new UnauthorizedException(
+				'Verification failed. Please check your verification code.',
+			);
 		}
 	}
 
@@ -56,7 +64,7 @@ export class AuthService {
 		try {
 			const verificationCode = GenerateVerificationCode();
 
-			const {data} = await this.usersService.getUserBy({ email });
+			const { data } = await this.usersService.getUserBy({ email });
 			if (!data) {
 				return {
 					statusCode: HttpStatus.NOT_FOUND,
@@ -75,49 +83,52 @@ export class AuthService {
 				message: 'Verification code sent successfully.',
 			};
 		} catch (err) {
-			throw new InternalServerErrorException('An unexpected error occurred while sending the verification code.')
+			throw new InternalServerErrorException(
+				'An unexpected error occurred while sending the verification code.',
+			);
 		}
 	}
 
-	async signup(
-		body: SignupDto,
-		role: Role,
-	): Promise<ResponseDto<User>> {
+	async signup(body: SignupAuthDto, role: Role): Promise<ResponseDto<User>> {
 		try {
 			const verificationCode = GenerateVerificationCode();
 
-			const {data} = await this.usersService.createUser(
+			const { data } = await this.usersService.createUser(
 				body,
 				role,
 				verificationCode,
 			);
 
 			if (data) {
-				await this.emailService.verifyEmail(body.email, verificationCode);
+				await this.emailService.verifyEmail(
+					body.email,
+					verificationCode,
+				);
 
 				return {
 					statusCode: HttpStatus.CREATED,
-					message: 'User successfully created. Please check your email for verification.',
+					message:
+						'User successfully created. Please check your email for verification.',
 					data: { ...data },
 				};
 			}
 
 			throw new InternalServerErrorException('Failed to create user.');
-
 		} catch (err) {
 			if (err instanceof InternalServerErrorException) {
-				throw new InternalServerErrorException('An error occurred during the signup process. Please try again later.')
+				throw new InternalServerErrorException(
+					'An error occurred during the signup process. Please try again later.',
+				);
 			}
 
-			throw new UnprocessableEntityException((err as UnprocessableEntityException).message);
+			throw new UnprocessableEntityException(
+				(err as UnprocessableEntityException).message,
+			);
 		}
 	}
 
-	async commonLogin(
-		email: string,
-		password: string,
-	): Promise<User> {
-		const {data} = await this.usersService.getUserBy({ email });
+	async commonLogin(email: string, password: string): Promise<User> {
+		const { data } = await this.usersService.getUserBy({ email });
 
 		if (!data) {
 			throw new NotFoundException(`No user found for email: ${email}`);
@@ -126,7 +137,9 @@ export class AuthService {
 		const isPasswordValid = await bcrypt.compare(password, data.password);
 
 		if (!isPasswordValid) {
-			throw new UnauthorizedException('Incorrect password. Please try again.');
+			throw new UnauthorizedException(
+				'Incorrect password. Please try again.',
+			);
 		}
 
 		if (!data.isVerified) {
@@ -142,7 +155,7 @@ export class AuthService {
 
 		return {
 			statusCode: HttpStatus.OK,
-			message: "User successfully logged in.",
+			message: 'User successfully logged in.',
 			accessToken: this.signJwtToken({ userId: user?.id }),
 		};
 	}
@@ -159,7 +172,7 @@ export class AuthService {
 
 		return {
 			statusCode: HttpStatus.OK,
-			message: "Admin was successfully logged in.",
+			message: 'Admin was successfully logged in.',
 			accessToken: this.signJwtToken({ userId: user.id }),
 		};
 	}
