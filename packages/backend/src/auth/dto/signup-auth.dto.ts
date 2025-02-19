@@ -1,25 +1,23 @@
-import { IsBoolean, IsPhoneNumber, IsString, MinLength } from 'class-validator';
+import { IsEmail, IsPhoneNumber, IsString, MinLength } from 'class-validator';
 import { Transform, TransformFnParams } from 'class-transformer';
-export class UpdateDto {
+export class SignupAuthDto {
 	@IsString()
 	@Transform(({ value }: TransformFnParams) => value?.trim())
-	name?: string;
+	name: string;
 
 	@MinLength(6)
 	@Transform(({ value }: TransformFnParams) => value?.trim())
-	password?: string;
+	password: string;
+
+	@IsEmail()
+	@Transform(({ value }: TransformFnParams) => value?.trim())
+	email: string;
 
 	@IsPhoneNumber()
 	@Transform(({ value }: TransformFnParams) => value?.trim())
-	phone?: string;
+	phone: string;
 
 	@IsString()
 	@Transform(({ value }: TransformFnParams) => value?.trim())
-	address?: string;
-
-	@IsBoolean()
-	isVerified?: boolean;
-
-	@IsString()
-	verificationCode?: string;
+	address: string;
 }

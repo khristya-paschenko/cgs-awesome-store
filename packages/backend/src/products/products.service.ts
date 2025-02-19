@@ -6,9 +6,9 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { Prisma, Product } from '@prisma/client';
-import { CreateDto } from '@/products/dto/create.dto';
+import { CreateProductsDto } from '@/products/dto/create-products.dto';
 import { ResponseDto } from '@/common /dto/response.dto';
-import { UpdateDto } from '@/products/dto/update.dto';
+import { UpdateProductsDto } from '@/products/dto/update-products.dto';
 
 export interface FilterOptions {
 	name?: string;
@@ -73,7 +73,9 @@ export class ProductsService {
 			);
 		}
 	}
-	async createProduct(body: CreateDto): Promise<ResponseDto<Product>> {
+	async createProduct(
+		body: CreateProductsDto,
+	): Promise<ResponseDto<Product>> {
 		try {
 			const data = await this.prismaService.product.create({
 				data: { ...body },
@@ -114,7 +116,7 @@ export class ProductsService {
 
 	async updateProduct(
 		id: string,
-		body: UpdateDto,
+		body: UpdateProductsDto,
 	): Promise<ResponseDto<Product>> {
 		try {
 			const data = await this.prismaService.product.update({
