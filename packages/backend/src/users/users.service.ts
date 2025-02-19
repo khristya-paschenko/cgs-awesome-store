@@ -79,7 +79,11 @@ export class UsersService {
 		try {
 			const data = await this.prismaService.user.update({
 				where: { id },
-				data: { ...body },
+				data: {
+					...body,
+					password:
+						body.password && (await bcrypt.hash(body.password, 10)),
+				},
 			});
 
 			return {
@@ -103,7 +107,6 @@ export class UsersService {
 
 	async deleteUser(id: string): Promise<ResponseDto<null>> {
 		try {
-			// Await the delete operation
 			await this.prismaService.user.delete({ where: { id } });
 
 			return {
