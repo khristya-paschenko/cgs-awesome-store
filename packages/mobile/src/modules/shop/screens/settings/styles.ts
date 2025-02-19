@@ -6,12 +6,11 @@ export const styles = StyleSheet.create({
 		backgroundColor: COLORS.bgBlue,
 		paddingTop: 20,
 		paddingHorizontal: 16,
+		gap: 20,
 	},
-	noFound: {
-		marginTop: 100,
-		textAlign: 'center',
-		fontSize: 18,
+	btn: {
 		fontFamily: FONTS.poppins.regular,
+		fontSize: 16,
 		color: COLORS.text,
 	},
 });

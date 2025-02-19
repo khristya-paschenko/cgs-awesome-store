@@ -1,5 +1,46 @@
-import { Text } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
+import { styles } from '~/modules/shop/screens/settings/styles';
+import { COLORS } from '~/shared/styles';
+import {
+	NAVIGATION_KEYS,
+	RootBottomTabsParamList,
+} from '~/modules/navigation/types';
+import { NavigationProp } from '@react-navigation/native';
 
-export const SettingsScreen = () => {
-	return <Text>Settings Screen</Text>;
+type SettingsScreenProps = {
+	navigation: NavigationProp<
+		RootBottomTabsParamList,
+		NAVIGATION_KEYS.SETTINGS
+	>;
+};
+export const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
+	return (
+		<View style={styles.container}>
+			<Pressable
+				onPress={() =>
+					navigation.navigate(NAVIGATION_KEYS.PERSONAL_INFO)
+				}
+			>
+				<Text style={styles.btn}>Personal info</Text>
+			</Pressable>
+			<Pressable
+				onPress={() =>
+					navigation.navigate(NAVIGATION_KEYS.CHANGE_PASSWORD)
+				}
+			>
+				<Text style={styles.btn}>Change password</Text>
+			</Pressable>
+			<Pressable>
+				<Text style={styles.btn}>FAQ</Text>
+			</Pressable>
+			<Pressable>
+				<Text style={styles.btn}>Terms & Conditions</Text>
+			</Pressable>
+			<Pressable>
+				<Text style={[styles.btn, { color: COLORS.accentRed }]}>
+					Logout
+				</Text>
+			</Pressable>
+		</View>
+	);
 };
