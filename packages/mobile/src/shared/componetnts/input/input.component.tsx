@@ -29,6 +29,7 @@ type InputProps<
 	N extends FieldPath<T> = FieldPath<T>,
 > = {
 	name: N;
+	disabled?: boolean;
 	control: Control<T>;
 	defaultValue: FieldPathValue<T, N>;
 	rules?:
@@ -49,6 +50,7 @@ export function Input<
 	T extends FieldValues,
 	N extends FieldPath<T> = FieldPath<T>,
 >({
+	disabled,
 	control,
 	name,
 	rules,
@@ -107,10 +109,12 @@ export function Input<
 						value && !error && styles.correct,
 						isFocused && styles.focused,
 						error && styles.wrong,
+						disabled && styles.disabledInput,
 					]}
 					textContentType="oneTimeCode"
 					autoCapitalize="none"
 					ref={inputRef}
+					editable={!disabled}
 					secureTextEntry={secure ? !isVisible : false}
 					placeholder={placeHolder ? placeHolder : ''}
 					placeholderTextColor={COLORS.text}

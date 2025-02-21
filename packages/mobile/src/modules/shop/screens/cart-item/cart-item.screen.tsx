@@ -46,6 +46,7 @@ export const CartItemScreen = ({ navigation, route }: CartItemScreenProps) => {
 	return (
 		<View style={styles.outerContainer}>
 			<KeyboardAwareScrollView
+				showsVerticalScrollIndicator={false}
 				contentContainerStyle={{
 					flex: 1,
 				}}

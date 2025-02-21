@@ -313,11 +313,9 @@ export class OrdersService {
 				});
 
 				if (order.orderDetails.length === 0) {
-					console.log('oder delete');
 					await tx.order.delete({ where: { id: order.id } });
 					return null;
 				} else {
-					console.log('order update');
 					return order;
 				}
 			});

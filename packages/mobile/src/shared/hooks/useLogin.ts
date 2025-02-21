@@ -42,7 +42,7 @@ export const useLogin = () => {
 		onSuccess: (res: LoginResponseBody) => {
 			setIsAuth(true);
 			setToken(res.accessToken);
-			setUser(res.data);
+			setUser(res.data ? res.data : null);
 			showToast('success', res.message);
 		},
 		onError: async (err: AxiosError<IServerError>) => {

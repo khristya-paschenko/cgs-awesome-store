@@ -19,7 +19,10 @@ export const EmailVerificationScreen = ({
 	const { email } = route.params;
 	return (
 		<SafeAreaView style={styles.outerContainer} edges={['top']}>
-			<KeyboardAwareScrollView contentContainerStyle={{ flex: 1 }}>
+			<KeyboardAwareScrollView
+				showsVerticalScrollIndicator={false}
+				contentContainerStyle={{ flex: 1 }}
+			>
 				<View style={styles.innerContainer}>
 					<Text style={styles.heading}>Email Verification</Text>
 

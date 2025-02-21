@@ -2,16 +2,18 @@ import { create } from 'zustand';
 import { persist, StorageValue } from 'zustand/middleware';
 import { asyncStorage } from '~/shared/services/async-storage.service';
 import { User } from '~/modules/services/auth';
+
 type TAuthService = {
 	token: string | null;
 	isAuth: boolean;
 	user: User | null;
-	setUser: (user: User) => void;
+	setUser: (user: User | null) => void;
 	setIsAuth: (auth: boolean) => void;
 	setToken: (token: string | null) => void;
 	logout: () => void;
 };
 
+//TODO: fix user data (user is undefined)
 export const useAuthStore = create<TAuthService>()(
 	persist(
 		(set) => ({

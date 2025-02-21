@@ -38,7 +38,10 @@ export const ProductScreen = ({ navigation, route }: ProductScreenProps) => {
 
 	return (
 		<View style={styles.outerContainer}>
-			<KeyboardAwareScrollView contentContainerStyle={{ flex: 1 }}>
+			<KeyboardAwareScrollView
+				showsVerticalScrollIndicator={false}
+				contentContainerStyle={{ flex: 1 }}
+			>
 				{!isPending && product && (
 					<View style={styles.innerContainer}>
 						<ProductDetailsComponent

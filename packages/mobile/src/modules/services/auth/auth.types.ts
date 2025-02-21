@@ -5,7 +5,14 @@ export interface LoginRequestBody {
 	password: string;
 }
 
-export type LoginResponseBody = Response<User>;
+export type LoginResponseBody = AuthEntity;
+
+export interface AuthEntity {
+	accessToken: string;
+	message: string;
+	statusCode: string;
+	data: User;
+}
 
 export interface SignupRequestBody {
 	email: string;
@@ -22,7 +29,7 @@ export interface VerifyRequestBody {
 	code: string;
 }
 
-export type VerifyResponseBody = Response<User>;
+export type VerifyResponseBody = AuthEntity;
 
 export type SendCodeResponseBody = Response<null>;
 

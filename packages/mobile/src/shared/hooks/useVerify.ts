@@ -15,7 +15,7 @@ import { showToast } from '~/shared/utils/show-toast';
 import { useAuthStore } from '~/shared/store';
 
 export const useVerify = () => {
-	const { setToken, setUser } = useAuthStore((state) => state);
+	const { setToken, setUser, setIsAuth } = useAuthStore((state) => state);
 
 	const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
@@ -28,6 +28,7 @@ export const useVerify = () => {
 		onSuccess: (res) => {
 			setToken(res.accessToken);
 			setUser(res.data);
+			setIsAuth(true);
 			showToast('success', res.message);
 			navigation.navigate(NAVIGATION_KEYS.CONFIRM);
 		},
@@ -36,7 +37,7 @@ export const useVerify = () => {
 		},
 	});
 
-	const handleSubmit = (code: string, email: string) => {
+	const handleSubmit = (code: string, email: string): void => {
 		verifyEmailMutation.mutate({
 			code,
 			email,
