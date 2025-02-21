@@ -14,6 +14,7 @@ class UsersService {
 		id: string,
 		data: UpdateUserRequestBody,
 	): Promise<UpdateUserResponseBody> {
+		console.log(data, 'data');
 		return this.httpService.patch(`users/${id}`, data);
 	}
 

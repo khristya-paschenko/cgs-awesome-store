@@ -62,7 +62,6 @@ export const useUpdateUser = () => {
 	});
 
 	const onSubmit = async (data: UpdateUserRequestBody): Promise<void> => {
-		console.log(data);
 		await mutateAsync(data);
 	};
 

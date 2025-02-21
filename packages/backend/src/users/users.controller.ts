@@ -25,12 +25,12 @@ export class UsersController {
 	@UseGuards(AtGuard)
 	@Delete()
 	deleteUser(@GetUser() user: User) {
-		console.log(user, '---user');
 		return this.usersService.deleteUser(user.id);
 	}
 
 	@Patch(':id')
-	updateUser(@Body() request: UpdateUsersDto, @Param('id') id: string) {
-		return this.usersService.updateUser(id, request);
+	updateUser(@Body() body: UpdateUsersDto, @Param('id') id: string) {
+		console.log(body, 'patch users body');
+		return this.usersService.updateUser(id, body);
 	}
 }
