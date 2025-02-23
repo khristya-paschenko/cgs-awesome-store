@@ -22,4 +22,38 @@ export const styles = StyleSheet.create({
 		color: COLORS.accentRed,
 		fontSize: 16,
 	},
+	alertContainer: {
+		width: '100%',
+		gap: 40,
+		alignItems: 'center',
+	},
+	question: {
+		fontFamily: FONTS.poppins.regular,
+		fontSize: 16,
+		color: COLORS.text,
+		textAlign: 'center',
+	},
+	btnContainer: {
+		flexDirection: 'row',
+		gap: 20,
+		alignItems: 'center',
+	},
+	btnNo: {
+		backgroundColor: COLORS.lightRed,
+	},
+	btnYes: {
+		backgroundColor: COLORS.activeBtn,
+	},
+	btnOption: {
+		height: 43,
+		width: 70,
+		borderRadius: 10,
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	btnText: {
+		color: COLORS.bgWhite,
+		fontFamily: FONTS.inter.bold,
+		fontSize: 16,
+	},
 });

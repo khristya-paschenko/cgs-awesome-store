@@ -1,14 +1,14 @@
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { styles } from '~/modules/shop/screens/change-password/styles';
 import { SubmitButton } from '~/shared/componetnts/ui/submit-btn';
 import { useUpdateUser } from '~/shared/hooks/useUpdateUser';
 import { Input } from '~/shared/componetnts/input';
+import React from 'react';
 
 export const ChangePasswordScreen = () => {
 	const { control, handleSubmit, onSubmit, isPending, watch } =
 		useUpdateUser();
-
 	return (
 		<KeyboardAwareScrollView
 			style={styles.outerContainer}

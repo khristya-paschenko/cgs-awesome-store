@@ -6,11 +6,22 @@ import { useAuthStore } from '~/shared/store';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { SubmitButton } from '~/shared/componetnts/ui/submit-btn';
 import { useDeleteUser } from '~/shared/hooks/useDeleteUser';
+import { Alert } from '~/shared/componetnts/ui/alert';
+import React from 'react';
 
 export const PersonalInfoScreen = () => {
 	const user = useAuthStore((state) => state.user);
 	const { control, handleSubmit, onSubmit, isPending } = useUpdateUser();
+	const [isVisible, setIsVisible] = React.useState<boolean>(false);
 	const { handleDelete } = useDeleteUser();
+
+	const handlePressDelete = () => {
+		setIsVisible(true);
+	};
+	const handleConfirmDelete = () => {
+		handleDelete();
+		setIsVisible(false);
+	};
 	return (
 		<KeyboardAwareScrollView
 			style={styles.outerContainer}
@@ -48,7 +59,7 @@ export const PersonalInfoScreen = () => {
 				</View>
 				<TouchableOpacity
 					style={styles.deleteBtnContainer}
-					onPress={handleDelete}
+					onPress={handlePressDelete}
 				>
 					<Text style={styles.deleteBtn}>Delete Account</Text>
 				</TouchableOpacity>
@@ -58,6 +69,27 @@ export const PersonalInfoScreen = () => {
 					onPress={handleSubmit(onSubmit)}
 				/>
 			</View>
+			<Alert visible={isVisible}>
+				<View style={styles.alertContainer}>
+					<Text style={styles.question}>
+						Are you sure you want to delete your account?
+					</Text>
+					<View style={styles.btnContainer}>
+						<TouchableOpacity
+							onPress={() => setIsVisible(false)}
+							style={[styles.btnNo, styles.btnOption]}
+						>
+							<Text style={styles.btnText}>No</Text>
+						</TouchableOpacity>
+						<TouchableOpacity
+							onPress={handleConfirmDelete}
+							style={[styles.btnYes, styles.btnOption]}
+						>
+							<Text style={styles.btnText}>Yes</Text>
+						</TouchableOpacity>
+					</View>
+				</View>
+			</Alert>
 		</KeyboardAwareScrollView>
 	);
 };

@@ -44,7 +44,6 @@ export const useUpdateUser = () => {
 			showToast('success', res.message);
 		},
 		onError: (err: AxiosError<IServerError>) => {
-			console.log(err.response?.data.message, 'error');
 			const badRequest =
 				err.response?.data.statusCode === HttpStatusCode.BadRequest;
 
@@ -62,7 +61,6 @@ export const useUpdateUser = () => {
 	const onSubmit = async (data: UpdateUserRequestBody): Promise<void> => {
 		await mutateAsync(data);
 	};
-	console.log(handleSubmit, 'handle submit ');
 	return {
 		onSubmit,
 		isPending,
