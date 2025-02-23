@@ -16,7 +16,6 @@ import { ResponseDto } from '@/common /dto/response.dto';
 import { SingleOrder, SortParams } from '@/orders/orders-types';
 import { PrismaService } from '../../prisma/prisma.service';
 import { UpdateOrderDto } from '@/orders/dto/update-order.dto';
-import { addAbortSignal } from 'node:stream';
 
 @Injectable()
 export class OrdersService {

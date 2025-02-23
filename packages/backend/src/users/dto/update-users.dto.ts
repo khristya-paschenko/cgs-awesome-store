@@ -16,6 +16,11 @@ export class UpdateUsersDto {
 	@IsOptional()
 	@MinLength(6)
 	@Transform(({ value }: TransformFnParams) => value?.trim())
+	currentPassword?: string;
+
+	@IsOptional()
+	@MinLength(6)
+	@Transform(({ value }: TransformFnParams) => value?.trim())
 	password?: string;
 
 	@IsOptional()

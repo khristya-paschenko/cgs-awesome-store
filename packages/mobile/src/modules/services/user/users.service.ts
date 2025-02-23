@@ -1,5 +1,3 @@
-import { HttpService } from '~/shared/services/http.service';
-import { mainAxios } from '~/shared/services/mainAxios';
 import {
 	DeleteUserResponseBody,
 	UpdateUserRequestBody,
@@ -14,7 +12,6 @@ class UsersService {
 		id: string,
 		data: UpdateUserRequestBody,
 	): Promise<UpdateUserResponseBody> {
-		console.log(data, 'data');
 		return this.httpService.patch(`users/${id}`, data);
 	}
 

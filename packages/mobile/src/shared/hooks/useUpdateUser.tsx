@@ -5,14 +5,13 @@ import {
 import { usersService } from '~/modules/services/user/users.service';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { signupSchema } from '~/shared/componetnts/signup-form';
 import { useMutation } from '@tanstack/react-query';
 import { useAuthStore } from '~/shared/store';
 import { showToast } from '~/shared/utils/show-toast';
-import { AxiosError } from 'axios';
+import { AxiosError, HttpStatusCode } from 'axios';
 import { IServerError } from '~/shared/services/types';
-import React from 'react';
 import { personalInfoSchema } from '~/modules/shop/screens/personal-info/personal-info.schema';
+import { date } from 'yup';
 
 type UserFormFields = {
 	email: string;
@@ -25,24 +24,12 @@ type UserFormFields = {
 };
 
 export const useUpdateUser = () => {
-	const { setUser, user } = useAuthStore();
-	const { control, handleSubmit, reset } = useForm<UserFormFields>({
-		mode: 'onChange',
+	const { setUser, user } = useAuthStore((state) => state);
+	const { control, handleSubmit, watch, setError } = useForm<UserFormFields>({
+		mode: 'all',
 		reValidateMode: 'onChange',
 		resolver: yupResolver(personalInfoSchema),
 	});
-
-	// React.useEffect(() => {
-	// 	reset({
-	// 		email: user?.email,
-	// 		name: user?.name,
-	// 		address: user?.address,
-	// 		phone: user?.phone,
-	// 		currentPassword: '',
-	// 		password: '',
-	// 		confirmPassword: '',
-	// 	});
-	// }, [user]);
 
 	const patchUser = async (
 		data: UpdateUserRequestBody,
@@ -57,6 +44,17 @@ export const useUpdateUser = () => {
 			showToast('success', res.message);
 		},
 		onError: (err: AxiosError<IServerError>) => {
+			console.log(err.response?.data.message, 'error');
+			const badRequest =
+				err.response?.data.statusCode === HttpStatusCode.BadRequest;
+
+			if (badRequest) {
+				setError('currentPassword', {
+					message: err.response?.data.message,
+				});
+				return;
+			}
+
 			showToast('error', err.response?.data.message);
 		},
 	});
@@ -64,11 +62,12 @@ export const useUpdateUser = () => {
 	const onSubmit = async (data: UpdateUserRequestBody): Promise<void> => {
 		await mutateAsync(data);
 	};
-
+	console.log(handleSubmit, 'handle submit ');
 	return {
 		onSubmit,
 		isPending,
 		control,
 		handleSubmit,
+		watch,
 	};
 };

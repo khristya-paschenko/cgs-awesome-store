@@ -3,10 +3,14 @@ import * as yup from 'yup';
 export const personalInfoSchema = yup.object().shape({
 	name: yup.string().optional(),
 	email: yup.string().email('Please enter a valid email address.').optional(),
-	currentPassword: yup.string().optional(),
-	password: yup.string().optional(),
-	// .min(6, 'Password must be at least 6 characters long.'),
-
+	currentPassword: yup
+		.string()
+		.min(6, 'Password must be at least 6 characters long.')
+		.optional(),
+	password: yup
+		.string()
+		.optional()
+		.min(6, 'Password must be at least 6 characters long.'),
 	confirmPassword: yup
 		.string()
 		.oneOf(

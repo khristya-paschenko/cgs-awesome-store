@@ -5,6 +5,7 @@ export type UpdateUserResponseBody = Response<User>;
 
 export interface UpdateUserRequestBody {
 	name?: string;
+	currentPassword?: string;
 	password?: string;
 	phone?: string;
 	address?: string;

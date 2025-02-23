@@ -1,4 +1,6 @@
 import {
+	BadRequestException,
+	HttpException,
 	HttpStatus,
 	Injectable,
 	InternalServerErrorException,
@@ -15,6 +17,13 @@ import { UpdateUsersDto } from '@/users/dto/update-users.dto';
 @Injectable()
 export class UsersService {
 	constructor(private readonly prismaService: PrismaService) {}
+
+	private handleError(error: unknown): never {
+		console.error('Error caught in handleError:', error);
+		throw error instanceof HttpException
+			? error
+			: new InternalServerErrorException('An unexpected error occurred.');
+	}
 
 	async createUser(
 		body: SignupAuthDto,
@@ -77,31 +86,90 @@ export class UsersService {
 		body: UpdateUsersDto,
 	): Promise<ResponseDto<User>> {
 		try {
-			const data = await this.prismaService.user.update({
+			if (body.currentPassword || body.password) {
+				if (!body.currentPassword) {
+					// return this.handleError(
+					// 	new BadRequestException(
+					// 		'Old password must be provided.',
+					// 	),
+					// );
+					throw new BadRequestException(
+						'Old password must be provided.',
+					);
+				}
+
+				if (!body.password) {
+					// return this.handleError(
+					// 	new BadRequestException(
+					// 		'New password must be provided.',
+					// 	),
+					// );
+					throw new BadRequestException(
+						'New password must be provided.',
+					);
+				}
+
+				const user = await this.prismaService.user.findUnique({
+					where: { id },
+				});
+
+				if (!user || !user.password) {
+					return this.handleError(
+						new NotFoundException(`User with id ${id} not found.`),
+					);
+				}
+
+				const isPasswordValid = await bcrypt.compare(
+					body.currentPassword,
+					user.password,
+				);
+
+				if (!isPasswordValid) {
+					return this.handleError(
+						new BadRequestException('Incorrect old password.'),
+					);
+				}
+
+				const updatedUser = await this.prismaService.user.update({
+					where: { id },
+					data: {
+						password: await bcrypt.hash(body.password, 10),
+					},
+				});
+
+				if (!updatedUser) {
+					return this.handleError(
+						new InternalServerErrorException(
+							'Failed to update user password.',
+						),
+					);
+				}
+
+				return {
+					statusCode: HttpStatus.OK,
+					message: 'User password updated successfully.',
+					data: updatedUser,
+				};
+			}
+
+			const updatedUser = await this.prismaService.user.update({
 				where: { id },
-				data: {
-					...body,
-					password:
-						body.password && (await bcrypt.hash(body.password, 10)),
-				},
+				data: { ...body },
 			});
+
+			if (!updatedUser) {
+				return this.handleError(
+					new InternalServerErrorException('Failed to update user.'),
+				);
+			}
 
 			return {
 				statusCode: HttpStatus.OK,
 				message: 'User successfully updated.',
-				data: { ...data },
+				data: updatedUser,
 			};
-		} catch (err) {
-			if (
-				err instanceof Prisma.PrismaClientKnownRequestError &&
-				err.code === 'P2025'
-			) {
-				throw new NotFoundException(`User with id ${id} not found.`);
-			}
-
-			throw new InternalServerErrorException(
-				'An error occurred while updating the user.',
-			);
+		} catch (error) {
+			return this.handleError(error);
 		}
 	}
 
@@ -115,14 +183,12 @@ export class UsersService {
 			};
 		} catch (err) {
 			console.error('Error deleting user:', err);
-
 			if (
 				err instanceof Prisma.PrismaClientKnownRequestError &&
 				err.code === 'P2025'
 			) {
 				throw new NotFoundException(`User with id ${id} not found.`);
 			}
-
 			throw new InternalServerErrorException(
 				'An error occurred while deleting the user.',
 			);
