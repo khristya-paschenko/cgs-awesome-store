@@ -41,5 +41,8 @@ export const styles = StyleSheet.create({
 		right: 23,
 		top: 15,
 	},
-	inputContainer: {},
+	disabledInput: {
+		backgroundColor: COLORS.disabled,
+		color: COLORS.disabledText,
+	},
 });

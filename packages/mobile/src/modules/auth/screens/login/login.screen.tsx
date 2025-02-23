@@ -24,7 +24,10 @@ export const LoginScreen = ({ navigation }: LoginScreeProps) => {
 
 	return (
 		<SafeAreaView style={styles.outerContainer} edges={['top']}>
-			<KeyboardAwareScrollView contentContainerStyle={{ flex: 1 }}>
+			<KeyboardAwareScrollView
+				showsVerticalScrollIndicator={false}
+				contentContainerStyle={{ flex: 1 }}
+			>
 				<View style={styles.innerContainer}>
 					<View style={styles.loginContainer}>
 						<Logo

@@ -52,6 +52,7 @@ export class AuthService {
 				statusCode: HttpStatus.OK,
 				message: 'User successfully verified.',
 				accessToken: this.signJwtToken({ userId: data.id }),
+				data: { ...data },
 			};
 		} catch (err) {
 			throw new UnauthorizedException(
@@ -157,6 +158,7 @@ export class AuthService {
 			statusCode: HttpStatus.OK,
 			message: 'User successfully logged in.',
 			accessToken: this.signJwtToken({ userId: user?.id }),
+			data: user,
 		};
 	}
 
@@ -174,6 +176,7 @@ export class AuthService {
 			statusCode: HttpStatus.OK,
 			message: 'Admin was successfully logged in.',
 			accessToken: this.signJwtToken({ userId: user.id }),
+			data: user,
 		};
 	}
 }

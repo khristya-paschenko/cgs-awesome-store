@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { User } from '@prisma/client';
 
 export class AuthEntity {
 	@ApiProperty()
@@ -7,4 +8,6 @@ export class AuthEntity {
 	message: string;
 
 	statusCode: number;
+
+	data: User;
 }

@@ -1,4 +1,4 @@
-import { Pressable, Text } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import { styles } from './styles';
 
 type SubmitButtonProps = {
@@ -14,13 +14,13 @@ export const SubmitButton = ({
 	onPress,
 }: SubmitButtonProps) => {
 	return (
-		<Pressable
+		<TouchableOpacity
 			disabled={disabled}
 			onPress={onPress}
 			style={[styles.button, disabled ? styles.disabled : styles.active]}
 		>
 			{Icon ? Icon : null}
 			<Text style={styles.text}>{text}</Text>
-		</Pressable>
+		</TouchableOpacity>
 	);
 };

@@ -3,26 +3,33 @@ import {
 	NAVIGATION_KEYS,
 	RootStackParamList,
 } from '~/modules/navigation/types';
-import { authService, VerifyRequestBody, VerifyResponseBody } from "~/modules/services/auth";
+import {
+	authService,
+	VerifyRequestBody,
+	VerifyResponseBody,
+} from '~/modules/services/auth';
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError, HttpStatusCode } from 'axios';
 import { IServerError } from '~/shared/services/types';
 import { showToast } from '~/shared/utils/show-toast';
-import { useAuthStore } from "~/shared/store";
+import { useAuthStore } from '~/shared/store';
 
 export const useVerify = () => {
-	const setToken = useAuthStore((state) => state.setToken);
+	const { setToken, setUser, setIsAuth } = useAuthStore((state) => state);
 
 	const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
-	const verify = async (data: VerifyRequestBody):Promise<VerifyResponseBody> =>
-		await authService.verify(data);
+	const verify = async (
+		data: VerifyRequestBody,
+	): Promise<VerifyResponseBody> => await authService.verify(data);
 
 	const verifyEmailMutation = useMutation({
 		mutationFn: verify,
 		onSuccess: (res) => {
 			setToken(res.accessToken);
-			showToast('success', res.message)
+			setUser(res.data);
+			setIsAuth(true);
+			showToast('success', res.message);
 			navigation.navigate(NAVIGATION_KEYS.CONFIRM);
 		},
 		onError: (err: AxiosError<IServerError>) => {
@@ -30,7 +37,7 @@ export const useVerify = () => {
 		},
 	});
 
-	const handleSubmit = (code: string, email: string) => {
+	const handleSubmit = (code: string, email: string): void => {
 		verifyEmailMutation.mutate({
 			code,
 			email,

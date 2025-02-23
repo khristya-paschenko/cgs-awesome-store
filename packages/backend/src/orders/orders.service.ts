@@ -16,7 +16,6 @@ import { ResponseDto } from '@/common /dto/response.dto';
 import { SingleOrder, SortParams } from '@/orders/orders-types';
 import { PrismaService } from '../../prisma/prisma.service';
 import { UpdateOrderDto } from '@/orders/dto/update-order.dto';
-import { addAbortSignal } from 'node:stream';
 
 @Injectable()
 export class OrdersService {
@@ -313,11 +312,9 @@ export class OrdersService {
 				});
 
 				if (order.orderDetails.length === 0) {
-					console.log('oder delete');
 					await tx.order.delete({ where: { id: order.id } });
 					return null;
 				} else {
-					console.log('order update');
 					return order;
 				}
 			});

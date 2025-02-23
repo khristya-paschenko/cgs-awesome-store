@@ -23,8 +23,7 @@ type LoginFormFields = {
 };
 
 export const useLogin = () => {
-	const setIsAuth = useAuthStore((state) => state.setIsAuth);
-	const setToken = useAuthStore((state) => state.setToken);
+	const { setIsAuth, setToken, setUser } = useAuthStore((state) => state);
 
 	const { control, handleSubmit, getValues, watch, setError } =
 		useForm<LoginFormFields>({
@@ -43,6 +42,7 @@ export const useLogin = () => {
 		onSuccess: (res: LoginResponseBody) => {
 			setIsAuth(true);
 			setToken(res.accessToken);
+			setUser(res.data ? res.data : null);
 			showToast('success', res.message);
 		},
 		onError: async (err: AxiosError<IServerError>) => {

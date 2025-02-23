@@ -21,6 +21,7 @@ export const App = () => {
 		'inter-bold': require('../../../assets/fonts/Inter-Bold.ttf'),
 		'poppins-regular': require('../../../assets/fonts/Poppins-Regular.ttf'),
 		'poppins-bold': require('../../../assets/fonts/Poppins-Bold.ttf'),
+		'poppins-semi-bold': require('../../../assets/fonts/Poppins-SemiBold.ttf'),
 	});
 
 	const bottomSheetRef = React.useRef<BottomSheet>(null);

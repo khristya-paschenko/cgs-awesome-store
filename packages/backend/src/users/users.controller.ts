@@ -1,6 +1,17 @@
-import { Controller, Get, Delete, Body, Param, Patch } from '@nestjs/common';
+import {
+	Controller,
+	Get,
+	Delete,
+	Body,
+	Param,
+	Patch,
+	UseGuards,
+} from '@nestjs/common';
 import { UsersService } from '@/users/users.service';
 import { UpdateUsersDto } from '@/users/dto/update-users.dto';
+import { AtGuard } from '@/auth/guard/at-guard.guard';
+import { GetUser } from '@/decorators/get-user.decorator';
+import { User } from '@prisma/client';
 
 @Controller('users')
 export class UsersController {
@@ -11,13 +22,14 @@ export class UsersController {
 		return this.usersService.getAllUsers();
 	}
 
-	@Delete(':id')
-	deleteUser(@Param('id') id: string) {
-		return this.usersService.deleteUser(id);
+	@UseGuards(AtGuard)
+	@Delete()
+	deleteUser(@GetUser() user: User) {
+		return this.usersService.deleteUser(user.id);
 	}
 
 	@Patch(':id')
-	updateUser(@Body() request: UpdateUsersDto, @Param('id') id: string) {
-		return this.usersService.updateUser(id, request);
+	updateUser(@Body() body: UpdateUsersDto, @Param('id') id: string) {
+		return this.usersService.updateUser(id, body);
 	}
 }

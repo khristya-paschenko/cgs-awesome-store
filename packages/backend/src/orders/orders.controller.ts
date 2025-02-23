@@ -31,7 +31,6 @@ export class OrdersController {
 	@UseGuards(AtGuard)
 	@Public()
 	@Get(':id')
-
 	getOrderById(@Param('id') id: string) {
 		return this.ordersService.getOrderById(id);
 	}

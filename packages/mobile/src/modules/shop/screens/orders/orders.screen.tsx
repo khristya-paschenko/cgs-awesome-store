@@ -21,28 +21,26 @@ export const OrdersScreen = () => {
 	}, []);
 
 	return (
-		<View style={styles.outerContainer}>
-			<View style={styles.innerContainer}>
-				<OrdersFilterComponent />
+		<View style={styles.container}>
+			<OrdersFilterComponent />
 
-				<FlatList
-					contentContainerStyle={{ marginTop: 20, paddingBottom }}
-					data={orders}
-					renderItem={(order) => (
-						<OrderItemComponent order={order.item} />
-					)}
-					refreshing={isPending}
-					onRefresh={handleRefresh}
-					onEndReached={handleNextPage}
-					showsVerticalScrollIndicator={false}
-					keyExtractor={(item) => item.id}
-					ListEmptyComponent={
-						<Text style={styles.noFound}>
-							You have no orders created
-						</Text>
-					}
-				/>
-			</View>
+			<FlatList
+				contentContainerStyle={{ marginTop: 20, paddingBottom }}
+				data={orders}
+				renderItem={(order) => (
+					<OrderItemComponent order={order.item} />
+				)}
+				refreshing={isPending}
+				onRefresh={handleRefresh}
+				onEndReached={handleNextPage}
+				showsVerticalScrollIndicator={false}
+				keyExtractor={(item) => item.id}
+				ListEmptyComponent={
+					<Text style={styles.noFound}>
+						You have no orders created
+					</Text>
+				}
+			/>
 		</View>
 	);
 };

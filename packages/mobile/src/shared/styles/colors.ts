@@ -12,4 +12,6 @@ export const COLORS = Object.freeze({
 	gray: '#777777',
 	lightGray: '#D0D0D0',
 	border: '#E3E3E3',
+	disabled: '#F5F5F5',
+	disabledText: '#898989',
 });
