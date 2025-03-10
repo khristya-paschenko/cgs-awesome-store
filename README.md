@@ -55,9 +55,9 @@ This project is a full-stack application featuring a Nest.js backend with Postgr
 ### Frontend 
 
 1.  Install dependencies:
-   ```bash
-   $ yarn install
-   ````
+    ```bash
+    $ yarn install
+    ```
 
 2. Start the React Native app:
    ```bash

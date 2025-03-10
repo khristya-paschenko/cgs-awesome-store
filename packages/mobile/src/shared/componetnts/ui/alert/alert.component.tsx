@@ -8,7 +8,7 @@ type AlertProps = {
 };
 export const Alert = ({ children, visible }: AlertProps) => {
 	return (
-		<Modal visible={visible} animationType="fade" transparent>
+		<Modal visible={visible} animationType="slide" transparent>
 			<View style={styles.overlay}>
 				<View style={styles.container}>{children}</View>
 			</View>
