@@ -71,29 +71,22 @@ This project is a full-stack application featuring a Nest.js backend with Postgr
 
 ## Gallery 
 
-Auth Screens
+#### Auth Screens
 
-<img src="assets/auth-login.png" width="170">
-<img src="assets/auth-sign-up.png" width="170">
-<img src="assets/auth-verify.png" width="170">
+<img src="assets/auth-login.png" width="170"/> <img src="assets/auth-sign-up.png" width="170"/> <img src="assets/auth-verify.png" width="170"/>
 
-Products Screen
+#### Products Screen
 
-<img src="assets/products.png" width="170">
-<img src="assets/products-search.png" width="170">
+<img src="assets/products.png" width="170"/> <img src="assets/products-search.png" width="170"/>
 
-Orders Screen
+####Orders Screen
 
-<img src="assets/orders.png" width="170">
-<img src="assets/orders-sheet.png" width="170">
+<img src="assets/orders.png" width="170"/> <img src="assets/orders-sheet.png" width="170"/>
 
-Cart Screen
+#### Cart Screen
 
-<img src="assets/cart.png" width="170">
-<img src="assets/cart-info.png" width="170">
+<img src="assets/cart.png" width="170"/> <img src="assets/cart-info.png" width="170"/>
 
-Settings Screens
+#### Settings Screens
 
-<img src="assets/settings.png" width="170">
-<img src="assets/personal-info.png" width="170">
-<img src="assets/change-password.png" width="170">
+<img src="assets/settings.png" width="170"/> <img src="assets/personal-info.png" width="170"/> <img src="assets/change-password.png" width="170"/>
