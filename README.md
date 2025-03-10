@@ -69,3 +69,31 @@ This project is a full-stack application featuring a Nest.js backend with Postgr
 - Backend: Nest.js, PostgreSQL, Prisma
 - Frontend: React Native, Expo, React Query, Zustand, Bottom Sheet, React Navigation
 
+## Gallery 
+
+Auth Screens
+
+<img src="assets/auth-login.png" width="170">
+<img src="assets/auth-sign-up.png" width="170">
+<img src="assets/auth-verify.png" width="170">
+
+Products Screen
+
+<img src="assets/products.png" width="170">
+<img src="assets/products-search.png" width="170">
+
+Orders Screen
+
+<img src="assets/orders.png" width="170">
+<img src="assets/orders-sheet.png" width="170">
+
+Cart Screen
+
+<img src="assets/cart.png" width="170">
+<img src="assets/cart-info.png" width="170">
+
+Settings Screens
+
+<img src="assets/settings.png" width="170">
+<img src="assets/personal-info.png" width="170">
+<img src="assets/change-password.png" width="170">
