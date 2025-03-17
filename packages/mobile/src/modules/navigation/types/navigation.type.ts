@@ -14,6 +14,7 @@ export enum NAVIGATION_KEYS {
 	SETTINGS = 'SETTINGS',
 	PERSONAL_INFO = 'PERSONAL_INFO',
 	CHANGE_PASSWORD = 'CHANGE_PASSWORD',
+	FAQ = 'FAQ',
 	CART = 'CART',
 	CART_ITEM = 'CART_ITEM',
 	PAYMENT_CONFIRM = 'PAYMENT_COMPLETE',
@@ -38,6 +39,7 @@ export type RootStackParamList = {
 	[NAVIGATION_KEYS.PAYMENT_CONFIRM]: undefined;
 	[NAVIGATION_KEYS.PERSONAL_INFO]: undefined;
 	[NAVIGATION_KEYS.CHANGE_PASSWORD]: undefined;
+	[NAVIGATION_KEYS.FAQ]: undefined;
 };
 
 export type RootBottomTabsParamList = {
