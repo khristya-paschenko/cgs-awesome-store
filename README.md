@@ -89,4 +89,4 @@ This project is a full-stack application featuring a Nest.js backend with Postgr
 
 #### Settings Screens
 
-<img src="assets/settings.png" width="170"/> <img src="assets/personal-info.png" width="170"/> <img src="assets/change-password.png" width="170"/>
+<img src="assets/settings.png" width="170"/> <img src="assets/personal-info.png" width="170"/> <img src="assets/confirm.png" width="170"/> <img src="assets/change-password.png" width="170"/> <img src="assets/faq.png" width="170"/>

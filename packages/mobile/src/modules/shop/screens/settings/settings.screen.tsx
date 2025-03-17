@@ -32,7 +32,9 @@ export const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
 			>
 				<Text style={styles.btn}>Change password</Text>
 			</TouchableOpacity>
-			<TouchableOpacity>
+			<TouchableOpacity
+				onPress={() => navigation.navigate(NAVIGATION_KEYS.FAQ)}
+			>
 				<Text style={styles.btn}>FAQ</Text>
 			</TouchableOpacity>
 			<TouchableOpacity>

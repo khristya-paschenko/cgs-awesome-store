@@ -24,6 +24,7 @@ import { EditOrderScreen } from '~/modules/shop/screens/edit-order/edit-order.sc
 import { PaymentScreen } from '~/modules/shop/screens/payment/payment.screen';
 import { PersonalInfoScreen } from '~/modules/shop/screens/personal-info';
 import { ChangePasswordScreen } from '~/modules/shop/screens/change-password';
+import { FaqScreen } from '~/modules/shop/screens/faq';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 export const RootNavigator = () => {
@@ -119,6 +120,11 @@ export const RootNavigator = () => {
 					name={NAVIGATION_KEYS.CHANGE_PASSWORD}
 					component={ChangePasswordScreen}
 					options={{ title: 'Change Password' }}
+				/>
+				<Stack.Screen
+					name={NAVIGATION_KEYS.FAQ}
+					component={FaqScreen}
+					options={{ title: 'FAQ' }}
 				/>
 			</>
 		);
