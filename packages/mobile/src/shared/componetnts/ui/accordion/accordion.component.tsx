@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import { styles } from '~/shared/componetnts/ui/accordion/styles';
 import React from 'react';
 import Arrow from '~/../assets/icons/HeaderBackIcon.svg';
@@ -31,13 +31,17 @@ export const Accordion = ({
 	}));
 	return (
 		<View style={styles.container}>
-			<TouchableOpacity
+			<Pressable
 				onPress={onPress}
 				style={[styles.btnContainer, styles.accordion]}
 			>
 				<Text style={styles.title}>{title}</Text>
-				<Arrow width={8} height={14} style={styles.arrowClosed} />
-			</TouchableOpacity>
+				<Arrow
+					width={8}
+					height={14}
+					style={isExpanded ? styles.arrowOpened : styles.arrowClosed}
+				/>
+			</Pressable>
 			<Animated.View style={[styles.animatedView, bodyStyle]}>
 				<View
 					onLayout={(e) => {
